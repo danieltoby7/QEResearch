@@ -1,0 +1,26 @@
+&inputun
+  prefix='graphene'                       ! prefix of scf calculation
+  outdir='./work'                   ! output files directory
+  Emin=-10                          ! min energy for spectral function    
+  Emax=10                           ! max energy for spectral function
+  DeltaE=0.01                        ! energy steps from Emin to Emax
+  w=0.350                            ! broadening for delta function in spectral function 
+  filout='./graphene.dat'            ! output file 
+  nscfklist=.false.                  ! if .true. prints the list of kpoints for nscf calculation
+  symreduce=.false.                  ! use symmetry to reduce the number of nscf kpoints (probably buggy)
+  verbose=.false.                    ! print a lot of debug stuff
+  write_pkm=.false.                  ! output P_Km coefficients and corresponding eigenvalues. WARNING: nspin x nkpt files will be created!
+  kpathunit='tpiba'                  ! whether the kpath should be constructed from fractional or Cartesin coordinates.Default: same as UNKPTS units
+/
+
+TRMAT
+2 0 0
+0 2 0
+0 0 1
+
+UNKPTS crystal_b
+4
+   0.333333333    0.333333333    0.000000000     36.000000000
+   0.000000000    0.000000000    0.000000000     32.000000000
+   0.500000000    0.000000000    0.000000000     22.000000000
+   0.333333333    0.333333333    0.000000000      1.000000000
