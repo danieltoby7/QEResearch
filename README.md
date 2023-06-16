@@ -1,2 +1,5 @@
 # QEResearch
-Unscaled is a picture of the unscaled HfSe2 plotted on the base cell of the HfSe2 band structure. By implementing the scaling code it will be scaled to follow the scaled jpg where the base cell and supercells are aligned perfectly. This is also proven by printing the k-points and comparing the k-points to the corresponding base cell
+ willHfSe2 band scaling code.
+Unscaled is a picture of the unscaled HfSe2 band structure, if you analyze it there is a small offset between the base cell and supercell.
+Implementing my code (change it to your corresponding data files and k-points) will scale the supercell supercell to fit the base cell.
+I've provided inputs for HfSe2 3x3 supercell but they may take long so I have provided one for graphene 2x2 supercell as well ans it should be much shorter.
