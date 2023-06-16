@@ -1,0 +1,30 @@
+ &CONTROL
+                 calculation = 'scf' ,
+                      outdir = '../tmp' ,
+                  pseudo_dir = 'your pseudopotenisl directory' ,
+                      prefix = 'graphene' ,
+ /
+ &SYSTEM
+                       ibrav = 4
+                   celldm(1) = 4.6478
+                   celldm(3) = 6.09876
+                         nat = 2
+                        ntyp = 1
+                     ecutwfc = 60
+                     ecutrho = 240 
+                        nbnd = 16
+                 occupations = 'smearing' 
+                     degauss = 0.0001 
+ /
+ &ELECTRONS
+                    conv_thr = 1.0d-9
+                 mixing_mode = 'plain' ,
+                 mixing_beta = 0.5 ,
+ /
+ATOMIC_SPECIES
+    C   12.01078  C.pbe-n-kjpaw_psl.1.0.0.UPF
+ATOMIC_POSITIONS crystal 
+C           0.33333333   0.66666666   0.00000000
+C           0.66666666   0.33333333   0.00000000
+K_POINTS automatic 
+  13 13 1  0 0 0 
