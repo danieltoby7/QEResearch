@@ -1,6 +1,6 @@
  &CONTROL
                  calculation = 'scf' ,
-                      outdir = '../tmp' ,
+                      outdir = './work' ,
                   pseudo_dir = 'your pseudopotenisl directory' ,
                       prefix = 'graphene' ,
  /
