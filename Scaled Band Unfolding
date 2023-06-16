@@ -1,0 +1,60 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+def scaling_x(bc, xsc):
+    xbcnew = np.zeros(xsc.size)
+    for i in range(0, xsc.size):
+        xbcnew[i] = bc[0, 0] + ((xsc[i] - xsc[0]) * (bc[-1, 0] - bc[0, 0]) / (xsc[-1] - xsc[0]))
+    return xbcnew
+
+fermi_energy_sc = -1.74185
+fermi_energy_bc = -1.7371
+
+bc1 = np.loadtxt('HfSe2.bands.gnu')
+np.max(bc1[:, 0])
+
+ax = plt.axes()
+plt.scatter(bc1[:, 0], bc1[:, 1] - fermi_energy_bc, s=6, c='tab:orange')
+plt.ylim([-10 - fermi_energy_bc, 5 - fermi_energy_bc])
+plt.xlim([0, np.max(bc1[:, 0])])
+
+sc1 = np.fromfile('HfSe2.dat')
+x_tes = sc1[0::3]
+
+dummy = pd.DataFrame({
+    'no': np.arange(x_tes.size),
+    "x": x_tes
+})
+
+npts = dummy[dummy['x'] == 0.00].iloc[-1, 0] + 1
+nkpt = -1
+Asc1 = sc1.reshape([nkpt, npts, 3])
+
+xsc1 = Asc1[:, 0, 0]
+ysc1 = Asc1[0, :, 1] - fermi_energy_sc
+
+xsc1new = scaling_x(bc1, xsc1)
+
+plt.pcolormesh(xsc1new, ysc1, Asc1[:, :, 2].T, shading='auto')
+plt.scatter(bc1[:, 0], bc1[:, 1] - fermi_energy_bc, s=6, color='white')
+plt.ylim([-4, 3])
+
+# Set the tick positions and labels for Gamma, M, K, and Gamma
+tick_positions = [0.0, 0.5774, 0.9107, np.max(xsc1new)]
+tick_labels = [r'$\Gamma$', 'M', 'K', r'$\Gamma$']
+plt.xticks(tick_positions, tick_labels)
+
+# Save the figure
+plt.savefig('scaledHfSe2.png')
+plt.ylabel(r'$E - E_f$ (eV)')
+# Create a table of unscaled and scaled data
+table_data = {
+    'Unscaled X': xsc1,
+    'Scaled X': xsc1new
+}
+table = pd.DataFrame(table_data)
+
+# Save the table to a CSV file
+table.to_csv('data.csv', index=False)
+
